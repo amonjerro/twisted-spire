@@ -225,7 +225,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelRadius: 10
-  moveSpeed: 1
+  moveAccel: 300
+  moveDrag: 1.5
+  airborneControl: 0.1
   jumpHeight: 200
   maxIncline: 45
   model: {fileID: 2105139750460607340}
@@ -236,7 +238,7 @@ CapsuleCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8206167061404011632}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 25f09e1735bcd094aaa3b8ac14c8039c, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -262,7 +264,7 @@ Rigidbody:
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -278,4 +280,4 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 1
   m_Constraints: 90
-  m_CollisionDetection: 3
+  m_CollisionDetection: 1
