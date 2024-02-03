@@ -191,7 +191,7 @@ GameObject:
   - component: {fileID: 313274017916591929}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -231,6 +231,7 @@ MonoBehaviour:
   jumpHeight: 200
   maxIncline: 45
   model: {fileID: 2105139750460607340}
+  Spawner: {fileID: 6741423823266376662, guid: 7b7ee4df3d309c342bd3ccf5e3953cb5, type: 3}
 --- !u!136 &6072141974035888976
 CapsuleCollider:
   m_ObjectHideFlags: 0
