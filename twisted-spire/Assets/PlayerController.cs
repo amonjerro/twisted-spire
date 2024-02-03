@@ -26,6 +26,9 @@ public class PlayerController : MonoBehaviour
 
     public GameObject model;
 
+    [Tooltip("The Spawner object to return to when its time to restart. Will be useful for checkpoints")]
+    public GameObject Spawner;
+
     bool airborne = false;
     Vector3 groundNormal;
     Rigidbody rb;
@@ -39,6 +42,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
+        UpdateSpawnerLocation(transform.position);
         col.center = transform.right * levelRadius;
         model.transform.localPosition = col.center;
     }
@@ -111,5 +115,19 @@ public class PlayerController : MonoBehaviour
         }
         airborne = nowAirborne;
         rb.useGravity = airborne;
+    }
+
+    public void ResetToSpawner()
+    {
+        transform.position = Spawner.transform.position;
+    }
+    
+    // When the player passes a checkpoint, call this function. Sets the spawner
+    // to the checkpoint's Y position and its rotation to the player's rotation
+    // so that the spawn correctly puts the player at the right height.
+    public void UpdateSpawnerLocation(Vector3 position)
+    {
+        Spawner.transform.position = position;
+        Spawner.transform.rotation = transform.rotation;
     }
 }
