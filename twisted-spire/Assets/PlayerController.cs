@@ -29,6 +29,8 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The Spawner object to return to when its time to restart. Will be useful for checkpoints")]
     public GameObject Spawner;
 
+    public bool isDead = false;
+
     bool airborne = false;
     Vector3 groundNormal;
     Rigidbody rb;
@@ -120,6 +122,7 @@ public class PlayerController : MonoBehaviour
     public void ResetToSpawner()
     {
         transform.position = Spawner.transform.position;
+        isDead = true;
     }
     
     // When the player passes a checkpoint, call this function. Sets the spawner
