@@ -11,7 +11,7 @@ public class TitleScreenBehavior : MonoBehaviour
     //Transitions to the Game Scene
     public void StartGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene(1);
     }
 
     //Quits the Game

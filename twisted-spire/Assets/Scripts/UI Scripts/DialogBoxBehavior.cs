@@ -21,6 +21,7 @@ public class DialogBoxBehavior : MonoBehaviour
     }
 
     public void NextSection() {
+        //Start the game when the button is pressed on the last dialog section
         if (lastDialogSection)
         {
             Time.timeScale = 1.0f;

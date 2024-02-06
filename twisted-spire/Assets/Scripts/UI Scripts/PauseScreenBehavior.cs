@@ -7,9 +7,11 @@ public class PauseScreenBehavior : MonoBehaviour
 {
     bool isPaused = false;
     public GameObject pauseScreen;
+    public GameObject gameUI;
 
     private void Update()
     {
+        //Pause when Escape key is pressed
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
@@ -22,13 +24,17 @@ public class PauseScreenBehavior : MonoBehaviour
         isPaused = !isPaused;
         if (isPaused)
         {
+            //Toggle pause UI on and game UI off
             pauseScreen.gameObject.SetActive(true);
+            gameUI.gameObject.SetActive(false);
             Time.timeScale = 0.0f;
         }
 
         else
         {
+            //Toggle pause UI off and game UI on
             pauseScreen.gameObject.SetActive(false);
+            gameUI.gameObject.SetActive(true);
             Time.timeScale = 1.0f;
         }
     }
