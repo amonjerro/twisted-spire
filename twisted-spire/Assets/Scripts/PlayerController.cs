@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
             // Jumping
             if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                vel.y = jumpHeight;
+                vel.y = jumpHeight * -Physics.gravity.normalized.y;
                 airborne = true;
                 jumpTmr = jumpCD;
                 rb.useGravity = true;
@@ -110,13 +110,15 @@ public class PlayerController : MonoBehaviour
     {
         groundNormal = Vector3.zero;
         bool nowAirborne = true;
+        Vector3 grav = Physics.gravity.normalized;
 
-        if (Physics.SphereCast(transform.position + (transform.right * levelRadius), col.radius * 0.95f, -Vector3.up, out RaycastHit hit, (col.height / 2f) - col.radius + 0.03f, 1))
+        if (Physics.SphereCast(transform.position + (transform.right * levelRadius), col.radius * 0.95f, grav, out RaycastHit hit, (col.height / 2f) - col.radius + 0.03f, 1))
         {
             // if angle between ground normal and player's up axis
             // is <= the max incline, it is a valid ground
-            if (Math.Acos(Vector3.Dot(hit.normal, Vector3.up)) <= maxIncline * Mathf.Deg2Rad)
+            if (Math.Acos(Vector3.Dot(hit.normal, -grav)) <= maxIncline * Mathf.Deg2Rad)
             {
+                
                 groundNormal = hit.normal;
                 nowAirborne = false;
             }
@@ -138,5 +140,10 @@ public class PlayerController : MonoBehaviour
     {
         Spawner.transform.position = position;
         Spawner.transform.rotation = transform.rotation;
+    }
+
+    public void FlipSprite(bool upsideDown)
+    {
+        model.GetComponent<SpriteRenderer>().flipY = upsideDown;
     }
 }
