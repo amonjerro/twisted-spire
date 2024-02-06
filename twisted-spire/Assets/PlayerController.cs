@@ -34,6 +34,8 @@ public class PlayerController : MonoBehaviour
     bool airborne = false;
     Vector3 groundNormal;
     Rigidbody rb;
+    SpriteRenderer sp;
+    Animator pc_animator;
     CapsuleCollider col;
 
     float jumpCD = 0.25f;
@@ -42,11 +44,13 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sp = model.GetComponent<SpriteRenderer>();
+        pc_animator = model.GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
         UpdateSpawnerLocation(transform.position);
         col.center = transform.right * levelRadius;
-        model.transform.localPosition = col.center;
+        model.transform.localPosition = new Vector3(col.center.x, col.center.y - 1);
     }
 
     // Update is called once per frame
@@ -67,20 +71,22 @@ public class PlayerController : MonoBehaviour
         // horizontal movement
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
+            sp.flipX = false;
             vel.x = 1f;
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) 
         {
+            sp.flipX = true;
             vel.x = -1f;
         }
 
         float airCtrl = airborne ? airborneControl : 1f;
-
+        pc_animator.SetFloat("f_movespeed", Mathf.Abs(vel.x));
         Vector3 newDir = transform.forward * vel.x;
         float dot = Vector3.Dot(groundNormal, newDir);
         newDir *= (1f - dot); // newDir.y should always be 0
         vel = new Vector2(newDir.magnitude * vel.x * airCtrl, -dot * moveAccel * Time.deltaTime);
-
+        
         // add drag
         vel.x += -rb.angularVelocity.y * moveDrag * airCtrl;
 
