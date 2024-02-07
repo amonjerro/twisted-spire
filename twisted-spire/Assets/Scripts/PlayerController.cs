@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour
     [Tooltip("The max incline slope the player can traverse.")]
     public float maxIncline = 45f;
 
-    public GameObject model;
+    public GameObject modelPivot;
 
     [Tooltip("The Spawner object to return to when its time to restart. Will be useful for checkpoints")]
     public GameObject Spawner;
@@ -38,19 +38,20 @@ public class PlayerController : MonoBehaviour
     Animator pc_animator;
     CapsuleCollider col;
 
-    float jumpCD = 0.25f;
+    float jumpCD = 0.5f;
     float jumpTmr = 0f;
+    bool jumpReady = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        sp = model.GetComponent<SpriteRenderer>();
-        pc_animator = model.GetComponent<Animator>();
+        sp = modelPivot.GetComponentInChildren<SpriteRenderer>();
+        pc_animator = modelPivot.GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
         UpdateSpawnerLocation(transform.position);
         col.center = transform.right * levelRadius;
-        model.transform.localPosition = new Vector3(col.center.x, col.center.y - 1);
+        modelPivot.transform.localPosition = new Vector3(col.center.x, col.center.y);
     }
 
     // Update is called once per frame
@@ -90,17 +91,16 @@ public class PlayerController : MonoBehaviour
         // add drag
         vel.x += -rb.angularVelocity.y * moveDrag * airCtrl;
 
-        if (!airborne)
+        // Jumping
+        jumpReady = Input.GetKey(KeyCode.Space) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
+
+        if (jumpReady && !airborne)
         {
-            // Jumping
-            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                vel.y = jumpHeight * -Physics.gravity.normalized.y;
-                airborne = true;
-                jumpTmr = jumpCD;
-                rb.useGravity = true;
-                rb.velocity = Vector3.zero;
-            }
+            vel.y = jumpHeight * -Physics.gravity.normalized.y;
+            airborne = true;
+            jumpTmr = jumpCD;
+            rb.useGravity = true;
+            rb.velocity = Vector3.zero;
         }
         rb.AddForce(new Vector3(0f, vel.y, 0f));
         rb.AddTorque(0f, vel.x * moveAccel * Time.deltaTime, 0f, ForceMode.Acceleration);
@@ -111,8 +111,7 @@ public class PlayerController : MonoBehaviour
         groundNormal = Vector3.zero;
         bool nowAirborne = true;
         Vector3 grav = Physics.gravity.normalized;
-
-        if (Physics.SphereCast(transform.position + (transform.right * levelRadius), col.radius * 0.95f, grav, out RaycastHit hit, (col.height / 2f) - col.radius + 0.03f, 1))
+        if (Physics.SphereCast(transform.position + (transform.right * levelRadius), col.radius * 0.95f, grav, out RaycastHit hit, (col.height / 2f) - col.radius + 0.1f, 1))
         {
             // if angle between ground normal and player's up axis
             // is <= the max incline, it is a valid ground
@@ -144,6 +143,7 @@ public class PlayerController : MonoBehaviour
 
     public void FlipSprite(bool upsideDown)
     {
-        model.GetComponent<SpriteRenderer>().flipY = upsideDown;
+        sp.transform.localPosition = new Vector3(0f, upsideDown ? 1f : -1f, 0f);
+        sp.flipY = upsideDown;
     }
 }
