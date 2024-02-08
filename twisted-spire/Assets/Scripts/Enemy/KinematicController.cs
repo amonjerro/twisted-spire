@@ -6,6 +6,7 @@ using UnityEngine;
 public class KinematicController : MonoBehaviour
 {
     public float rotateSpeed;
+    private float _initialRotateSpeed;
     bool rotateCounterClockWise;
     EnemyBase baseController;
     public Vector3 initialPosition;
@@ -13,6 +14,7 @@ public class KinematicController : MonoBehaviour
     private void Start()
     {
         baseController = GetComponent<EnemyBase>();
+        _initialRotateSpeed = rotateSpeed;
     }
 
     public void SetTarget(Vector3 target)
@@ -43,6 +45,16 @@ public class KinematicController : MonoBehaviour
         {
             transform.position = UtilityFunctions.RotateClockwise(transform.position, theta);
         }
+    }
+
+    public void SetRushSpeed()
+    {
+        rotateSpeed = _initialRotateSpeed * 1.5f;
+    }
+
+    public void ResetSpeed()
+    {
+        rotateSpeed = _initialRotateSpeed;
     }
 
     public void ResetHeight()

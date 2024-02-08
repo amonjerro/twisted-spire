@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.VersionControl;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 
 public abstract class State { 
@@ -9,6 +10,7 @@ public abstract class State {
     {
         Idle,
         Patrolling,
+        Alerted,
         Attacking,
         Recovering
     }
@@ -63,7 +65,7 @@ public class IdleState : State
         // Test for attack state
         if (sm.ShouldAttack())
         {
-            EndState(StateTypes.Attacking);
+            EndState(StateTypes.Alerted);
         }
 
         // Creatures idle for some time, then go back to patrolling
@@ -94,7 +96,7 @@ public class PatrollingState : State
         // Test for attack state
         if (sm.ShouldAttack())
         {
-            EndState(StateTypes.Attacking);
+            EndState(StateTypes.Alerted);
         }
 
         // Move towards the current target
@@ -139,12 +141,13 @@ public class PatrollingState : State
 public class AttackingState : State
 {
     StateMachine sm;
-    Vector3 target;
+    public Vector3 target;
     public float tolerance;
     KinematicController km;
 
     public override void OnStateEnd(StateTypes nextState)
     {
+        km.ResetSpeed();
         sm.SetState(nextState);
     }
 
@@ -195,6 +198,37 @@ public class RecoveringState : State
     }
 }
 
+public class AlertedState : State
+{
+    public Vector3 target;
+    public StateMachine sm;
+    float idleTimer = 0.0f;
+    public override void OnStateEnd(StateTypes nextState)
+    {
+        sm.SetState(nextState);
+    }
+
+    public override void OnStateStart(StateMachine sm)
+    {
+        this.sm = sm;
+        sm.SetupAlert(this);
+        KinematicController km = sm.gameObject.GetComponent<KinematicController>();
+        km.SetRushSpeed();
+        km.SetTarget(target);
+    }
+
+    public override void OnStateUpdate()
+    {
+        idleTimer += Time.deltaTime;
+
+        if (idleTimer > 1.0f)
+        {
+            EndState(StateTypes.Attacking);
+        }
+    }
+
+}
+
 public static class StateFactory
 {
     public static State MakeState(State.StateTypes type)
@@ -205,6 +239,8 @@ public static class StateFactory
                 return new PatrollingState();
             case State.StateTypes.Attacking:
                 return new AttackingState();
+            case State.StateTypes.Alerted: 
+                return new AlertedState();
             case State.StateTypes.Recovering:
                 return new RecoveringState();
             default:

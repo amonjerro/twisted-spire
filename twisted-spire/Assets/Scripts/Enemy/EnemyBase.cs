@@ -9,14 +9,19 @@ public class EnemyBase : MonoBehaviour
     public float spriteHeight;
     SpriteRenderer childSM;
     BoxCollider col;
+    StateMachine stateMachine;
+    Detector detector;
     // Start is called before the first frame update
     void Start()
     {
         col = GetComponent<BoxCollider>();
+        stateMachine = GetComponent<StateMachine>();
         col.center = transform.right * levelRadius;
         transform.localPosition += col.center;
         col.center = new Vector3(0, spriteHeight, 0);
         childSM = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        detector = transform.GetChild(1).GetComponent<Detector>();
+        detector.Setup(this, col.center);
         KinematicController km = GetComponent<KinematicController>();
         km.initialPosition = transform.position;
     }
@@ -30,6 +35,11 @@ public class EnemyBase : MonoBehaviour
     public void SetFlipSprite(bool state)
     {
         childSM.flipX = state;
+    }
+
+    public void ReactToDetection(Transform player)
+    {
+        stateMachine.TargetPlayer(player);
     }
 
     private void OnCollisionEnter(Collision collision)
