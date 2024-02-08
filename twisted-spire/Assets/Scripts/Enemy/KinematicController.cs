@@ -8,12 +8,12 @@ public class KinematicController : MonoBehaviour
     public float rotateSpeed;
     private float _initialRotateSpeed;
     bool rotateCounterClockWise;
-    EnemyBase baseController;
+    EnemyPatrolBase baseController;
     public Vector3 initialPosition;
 
     private void Start()
     {
-        baseController = GetComponent<EnemyBase>();
+        baseController = GetComponent<EnemyPatrolBase>();
         _initialRotateSpeed = rotateSpeed;
     }
 

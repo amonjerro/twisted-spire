@@ -4,9 +4,9 @@ public class Detector : MonoBehaviour
 {
     public float radius;
     SphereCollider sphereCollider;
-    EnemyBase ebase;
+    EnemyPatrolBase ebase;
     
-    public void Setup(EnemyBase eBase, Vector3 colliderCenter)
+    public void Setup(EnemyPatrolBase eBase, Vector3 colliderCenter)
     {
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.radius = radius;
