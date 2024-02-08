@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBase : MonoBehaviour
+public class EnemyPatrolBase : Enemy
 {
     [Tooltip("The radius from the center of the level. The player moves along a horizonal circumference of this radius.")]
     public float levelRadius = 10f;
@@ -12,8 +12,11 @@ public class EnemyBase : MonoBehaviour
     StateMachine stateMachine;
     Detector detector;
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        // do generic Enemy setup first
+        base.Start();
+
         col = GetComponent<BoxCollider>();
         stateMachine = GetComponent<StateMachine>();
         col.center = transform.right * levelRadius;

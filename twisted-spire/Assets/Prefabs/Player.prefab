@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8308246383744287792}
   - component: {fileID: 4293257649853533867}
   - component: {fileID: 1915604870540226579}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -114,7 +114,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 930091971878575129}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ModelPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 7929595435609891574}
   - component: {fileID: 1192589269519716441}
   - component: {fileID: 1061487320487406507}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 2109828166255879943}
   - component: {fileID: 6072141974035888976}
   - component: {fileID: 313274017916591929}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}

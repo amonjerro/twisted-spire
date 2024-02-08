@@ -34,7 +34,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: -15, z: 0}
 --- !u!33 &5099015542179983626
 MeshFilter:
@@ -119,7 +119,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6417aa5043beb0f4f92676ab05e09561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 100
+  immune: 1
   levelRadius: 10
+  spriteHeight: 0
 --- !u!54 &4172825129876976572
 Rigidbody:
   m_ObjectHideFlags: 0
