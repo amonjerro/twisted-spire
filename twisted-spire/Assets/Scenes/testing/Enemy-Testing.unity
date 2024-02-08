@@ -3030,7 +3030,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 249}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -530, y: -689.0428}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1153104133
@@ -5234,44 +5234,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1974179971735950189, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: movespeed
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1974179971735950189, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: rotateSpeed
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 2053405603936262618, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
       propertyPath: m_Name
       value: ArmorEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 4698504969903986640, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: m_FlipX
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5333701196375528456, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: m_Size.y
-      value: 1.6306502
-      objectReference: {fileID: 0}
-    - target: {fileID: 5333701196375528456, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: m_Center.y
-      value: 0.9346759
-      objectReference: {fileID: 0}
-    - target: {fileID: 6168325660422937234, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: patrolTheta
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6168325660422937234, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: recoveryTime
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6168325660422937234, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: distanceTolerance
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6308009671960694202, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: spriteHeight
+    - target: {fileID: 7192151272853287592, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
