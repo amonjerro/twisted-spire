@@ -8,7 +8,7 @@ public class StateMachine : MonoBehaviour
     public State.StateTypes startingState;
     public State.StateTypes currentStateType;
     State currentState;
-    Transform playerTransform;
+    Vector3 playerPosition;
     public bool canAttack;
     private bool playerInRange;
     public float patrolTheta;
@@ -48,7 +48,7 @@ public class StateMachine : MonoBehaviour
     public void SetupAttack(AttackingState state)
     {
         state.tolerance = distanceTolerance;
-        state.target = playerTransform.position;
+        state.target = playerPosition;
     }
 
     public void SetupRecovery(RecoveringState state)
@@ -64,7 +64,7 @@ public class StateMachine : MonoBehaviour
 
     public void SetupAlert(AlertedState state)
     {
-        state.target = playerTransform.position;
+        state.target = playerPosition;
     }
 
     public bool ShouldAttack()
@@ -72,10 +72,15 @@ public class StateMachine : MonoBehaviour
         return canAttack && playerInRange;
     }
 
-    public void TargetPlayer(Transform playerTransform)
+    public void TargetPlayer(Vector3 playerPosition)
     {
-        this.playerTransform = playerTransform;
+        this.playerPosition = playerPosition;
         playerInRange = true;
 
+    }
+
+    public void LoseTarget()
+    {
+        playerInRange = false;
     }
 }

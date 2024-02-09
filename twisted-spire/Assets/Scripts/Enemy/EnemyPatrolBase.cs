@@ -40,9 +40,14 @@ public class EnemyPatrolBase : Enemy
         childSM.flipX = state;
     }
 
-    public void ReactToDetection(Transform player)
+    public void ReactToDetection(Vector3 playerPosition)
     {
-        stateMachine.TargetPlayer(player);
+        stateMachine.TargetPlayer(playerPosition);
+    }
+
+    public void LoseTarget()
+    {
+        stateMachine.LoseTarget();
     }
 
     private void OnCollisionEnter(Collision collision)
