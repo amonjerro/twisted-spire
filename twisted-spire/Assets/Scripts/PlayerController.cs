@@ -106,6 +106,11 @@ public class PlayerController : MonoBehaviour
         rb.AddTorque(0f, vel.x * moveAccel * Time.deltaTime, 0f, ForceMode.Acceleration);
     }
 
+    public Vector3 GetColliderPosition()
+    {
+        return transform.TransformPoint(transform.right * levelRadius);
+    }
+
     void CheckAirborne()
     {
         groundNormal = Vector3.zero;
