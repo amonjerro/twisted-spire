@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.VersionControl;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 
 public abstract class State { 
@@ -12,12 +10,12 @@ public abstract class State {
         Patrolling,
         Alerted,
         Attacking,
-        Recovering
+        Recovering,
     }
 
-    public abstract void OnStateEnd(StateTypes nextState);
-    public abstract void OnStateStart(StateMachine sm);
-    public abstract void OnStateUpdate();
+    protected abstract void OnStateEnd(StateTypes nextState);
+    protected abstract void OnStateStart(StateMachine sm);
+    protected abstract void OnStateUpdate();
 
     public void UpdateState()
     {
@@ -41,19 +39,19 @@ public class IdleState : State
     bool isActive = true;
     public float idleTime;
     float internalTimer;
-    public override void OnStateEnd(StateTypes nextState)
+    protected override void OnStateEnd(StateTypes nextState)
     {
         sm.SetState(nextState);
     }
 
-    public override void OnStateStart(StateMachine sm)
+    protected override void OnStateStart(StateMachine sm)
     {
         this.sm = sm;
         sm.SetupIdle(this);
         internalTimer = 0.0f;
     }
 
-    public override void OnStateUpdate()
+    protected override void OnStateUpdate()
     {
         // Might be idling because this enemy is not active. I.e. it has spawned but no trigger has woken it up
         if (!isActive)
@@ -86,12 +84,12 @@ public class PatrollingState : State
     StateMachine sm;
     KinematicController km;
 
-    public override void OnStateEnd(StateTypes nextState)
+    protected override void OnStateEnd(StateTypes nextState)
     {
         sm.SetState(nextState);
     }
 
-    public override void OnStateUpdate()
+    protected override void OnStateUpdate()
     {
         // Test for attack state
         if (sm.ShouldAttack())
@@ -101,13 +99,13 @@ public class PatrollingState : State
 
         // Move towards the current target
         km.MoveTowardsTarget();
-        if (Vector3.Distance(sm.gameObject.transform.position, currentTarget) <= tolerance)
+        if (km.DestinationWithinTolerance(sm.gameObject.transform.position, tolerance))
         {
             EndState(StateTypes.Idle);
         }
     }
 
-    public override void OnStateStart(StateMachine sm)
+    protected override void OnStateStart(StateMachine sm)
     {
         this.sm = sm;
         sm.SetupPatrol(this);
@@ -145,25 +143,25 @@ public class AttackingState : State
     public float tolerance;
     KinematicController km;
 
-    public override void OnStateEnd(StateTypes nextState)
+    protected override void OnStateEnd(StateTypes nextState)
     {
         km.ResetSpeed();
         sm.SetState(nextState);
     }
 
-    public override void OnStateUpdate()
+    protected override void OnStateUpdate()
     {
         // Move towards recorder player position
         km.MoveTowardsTarget();
 
         // If it has reached the player position, move to a recovery time
-        if (Vector3.Distance(sm.gameObject.transform.position, target) < tolerance)
+        if (km.DestinationWithinTolerance(sm.gameObject.transform.position, tolerance))
         {
             EndState(StateTypes.Recovering);
         }
     }
 
-    public override void OnStateStart(StateMachine sm)
+    protected override void OnStateStart(StateMachine sm)
     {
         this.sm = sm;
         km = sm.gameObject.GetComponent<KinematicController>();
@@ -177,12 +175,12 @@ public class RecoveringState : State
     StateMachine sm;
     public float idleTime;
     float internalTimer;
-    public override void OnStateEnd(StateTypes nextState)
+    protected override void OnStateEnd(StateTypes nextState)
     {
         sm.SetState(nextState);
     }
 
-    public override void OnStateUpdate()
+    protected override void OnStateUpdate()
     {
         internalTimer += Time.deltaTime;
         if (internalTimer >= idleTime)
@@ -191,7 +189,7 @@ public class RecoveringState : State
         }
     }
 
-    public override void OnStateStart(StateMachine sm)
+    protected override void OnStateStart(StateMachine sm)
     {
         this.sm = sm;
         sm.SetupRecovery(this);
@@ -203,12 +201,12 @@ public class AlertedState : State
     public Vector3 target;
     public StateMachine sm;
     float idleTimer = 0.0f;
-    public override void OnStateEnd(StateTypes nextState)
+    protected override void OnStateEnd(StateTypes nextState)
     {
         sm.SetState(nextState);
     }
 
-    public override void OnStateStart(StateMachine sm)
+    protected override void OnStateStart(StateMachine sm)
     {
         this.sm = sm;
         sm.SetupAlert(this);
@@ -217,7 +215,7 @@ public class AlertedState : State
         km.SetTarget(target);
     }
 
-    public override void OnStateUpdate()
+    protected override void OnStateUpdate()
     {
         idleTimer += Time.deltaTime;
 

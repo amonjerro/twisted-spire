@@ -4,9 +4,9 @@ public class Detector : MonoBehaviour
 {
     public float radius;
     SphereCollider sphereCollider;
-    EnemyBase ebase;
+    EnemyPatrolBase ebase;
     
-    public void Setup(EnemyBase eBase, Vector3 colliderCenter)
+    public void Setup(EnemyPatrolBase eBase, Vector3 colliderCenter)
     {
         sphereCollider = GetComponent<SphereCollider>();
         sphereCollider.radius = radius;
@@ -17,12 +17,16 @@ public class Detector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collision");
-        if (other.gameObject.tag == "Player")
+        if (other.tag == "Player")
         {
-            Debug.Log("Player is in detection radius");
-            ebase.ReactToDetection(other.gameObject.transform);
+            Transform modelPivot = other.transform.GetChild(0);
+            ebase.ReactToDetection(modelPivot.transform.position);
         }
     }
 
+
+    private void OnTriggerExit(Collider other)
+    {
+        ebase.LoseTarget();
+    }
 }
