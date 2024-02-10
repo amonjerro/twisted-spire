@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5333701196375528456}
   - component: {fileID: 1974179971735950189}
   - component: {fileID: 6168325660422937234}
+  - component: {fileID: 445902098844593033}
   m_Layer: 6
   m_Name: ArmorEnemy
   m_TagString: Enemy
@@ -49,6 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6417aa5043beb0f4f92676ab05e09561, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 100
+  immune: 0
   levelRadius: 10
   spriteHeight: 1
 --- !u!65 &5333701196375528456
@@ -86,6 +89,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 20
   initialPosition: {x: 0, y: 0, z: 0}
+  allowVerticalMovement: 0
 --- !u!114 &6168325660422937234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105,6 +109,18 @@ MonoBehaviour:
   distanceTolerance: 0.2
   recoveryTime: 1
   idleTime: 1
+--- !u!114 &445902098844593033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053405603936262618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5153abe864994044818a2934f5c2b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7143238419561329496
 GameObject:
   m_ObjectHideFlags: 0
@@ -182,6 +198,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7164796311439525309}
   - component: {fileID: 4698504969903986640}
+  - component: {fileID: 7132424199652062574}
   m_Layer: 6
   m_Name: GameObject
   m_TagString: Enemy
@@ -256,3 +273,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7132424199652062574
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091938465103208719}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f9cd30b4ded9a8345a51acad195d7e57, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

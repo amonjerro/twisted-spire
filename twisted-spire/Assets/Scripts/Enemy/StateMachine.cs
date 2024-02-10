@@ -5,20 +5,37 @@ using UnityEngine;
 
 public class StateMachine : MonoBehaviour
 {
+    [Tooltip("The starting state for this enemy")]
     public State.StateTypes startingState;
+
+    [Tooltip("A debug look at the current state of the enemy")]
     public State.StateTypes currentStateType;
     State currentState;
     Vector3 playerPosition;
+
+    [Tooltip("Control for whether this enemy can attack or will just patrol")]
     public bool canAttack;
-    private bool playerInRange;
+
+    [Tooltip("The patrol radius in degrees. Bigger means a longer patrol")]
     public float patrolTheta;
+
+    [Tooltip("Tolerance for determining that this enemy has reached a destination")]
     public float distanceTolerance;
+    
+    [Tooltip("The amount of time this enemy spends recovering after attacking")]
     public float recoveryTime;
+
+    [Tooltip("The amount of time this enemy spends idle between patrol points")]
     public float idleTime;
+
+    private bool playerInRange;
+    private EnemyAnimationController animationController;
+    
 
     // Start is called before the first frame update
     void Start()
     {
+        animationController = GetComponent<EnemyAnimationController>();
         currentStateType = startingState;
         currentState = StateFactory.MakeState(currentStateType);
         currentState.StartState(this);
@@ -82,5 +99,10 @@ public class StateMachine : MonoBehaviour
     public void LoseTarget()
     {
         playerInRange = false;
+    }
+
+    public EnemyAnimationController GetAnimator()
+    {
+        return animationController;
     }
 }
