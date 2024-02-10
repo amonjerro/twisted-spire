@@ -2676,7 +2676,8 @@ Transform:
   m_LocalPosition: {x: 63.04, y: 21.54, z: 0}
   m_LocalScale: {x: 8.672297, y: 7.058838, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1740545291}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3243,7 +3244,7 @@ GameObject:
   - component: {fileID: 1740545291}
   - component: {fileID: 1740545290}
   m_Layer: 0
-  m_Name: Iceball (1)
+  m_Name: Iceball Travel Path
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3308,13 +3309,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1740545289}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 64.69, y: 21.2, z: 0}
-  m_LocalScale: {x: 387.1557, y: 1.216026, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.1902612, y: -0.048166588, z: 0}
+  m_LocalScale: {x: 44.64281, y: 0.17226999, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_Father: {fileID: 1371377709}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1796916656
 GameObject:
