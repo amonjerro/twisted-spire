@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 using UnityEngine;
 
 public class FallingChandelier : MonoBehaviour
@@ -35,8 +36,12 @@ public class FallingChandelier : MonoBehaviour
         // Check if the chandelier has not fallen yet and if the other collider has the tag "Player"
         if (!hasFallen && other.CompareTag("Player"))
         {
-            Fall();
+            System.Random r = new System.Random();
+            float randoTime = (float)(r.NextDouble()*0.3);
+            Invoke("Fall", randoTime);
+            Debug.Log("Delay time: " + randoTime);
         }
+       
     }
 
     void Fall()
@@ -54,7 +59,8 @@ public class FallingChandelier : MonoBehaviour
         {
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
             pc.ResetToSpawner();
-            ResetChandelier();
+            //ResetChandelier();
+            DestroyAndRespawn();
         }
         else if (collision.gameObject.CompareTag("Floor") && hasFallen)
         {
@@ -77,8 +83,8 @@ public class FallingChandelier : MonoBehaviour
     async void DestroyAndRespawn()
     {
         gameObject.SetActive(false); // Hide the chandelier;
-        Invoke("ResetChandelier", 1.5f);
-        gameObject.SetActive(true); // Show the chandelier again
+        //Invoke("ResetChandelier", 1.5f);
+        //gameObject.SetActive(true); // Show the chandelier again
     }
     /*
     void OnDrawGizmosSelected()
