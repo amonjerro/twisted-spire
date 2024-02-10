@@ -41,12 +41,16 @@ public class IdleState : State
     float internalTimer;
     protected override void OnStateEnd(StateTypes nextState)
     {
+        EnemyAnimationController animationController = sm.GetAnimator();
+        animationController.SetParameter(StateTypes.Idle, false);
         sm.SetState(nextState);
     }
 
     protected override void OnStateStart(StateMachine sm)
     {
         this.sm = sm;
+        EnemyAnimationController animationController = sm.GetAnimator();
+        animationController.SetParameter(StateTypes.Idle, true);
         sm.SetupIdle(this);
         internalTimer = 0.0f;
     }
@@ -70,6 +74,7 @@ public class IdleState : State
         internalTimer += Time.deltaTime;
         if (internalTimer > idleTime)
         {
+            
             EndState(StateTypes.Patrolling);
         }
     }
@@ -86,6 +91,8 @@ public class PatrollingState : State
 
     protected override void OnStateEnd(StateTypes nextState)
     {
+        EnemyAnimationController animationController = sm.GetAnimator();
+        animationController.SetParameter(StateTypes.Patrolling, false);
         sm.SetState(nextState);
     }
 
@@ -101,6 +108,7 @@ public class PatrollingState : State
         km.MoveTowardsTarget();
         if (km.DestinationWithinTolerance(sm.gameObject.transform.position, tolerance))
         {
+            
             EndState(StateTypes.Idle);
         }
     }
@@ -112,6 +120,8 @@ public class PatrollingState : State
         DecideCurrentTarget();
         km = sm.gameObject.GetComponent<KinematicController>();
         km.SetTarget(currentTarget);
+        EnemyAnimationController animationController = sm.GetAnimator();
+        animationController.SetParameter(StateTypes.Patrolling, true);
     }
 
     private void SetCurrentTarget(Vector3 target)
@@ -146,6 +156,8 @@ public class AttackingState : State
     protected override void OnStateEnd(StateTypes nextState)
     {
         km.ResetSpeed();
+        EnemyAnimationController animationController = sm.GetAnimator();
+        animationController.SetParameter(StateTypes.Attacking, false);
         sm.SetState(nextState);
     }
 
@@ -165,6 +177,8 @@ public class AttackingState : State
     {
         this.sm = sm;
         km = sm.gameObject.GetComponent<KinematicController>();
+        EnemyAnimationController animationController = sm.GetAnimator();
+        animationController.SetParameter(StateTypes.Attacking, true);
         sm.SetupAttack(this);
         km.SetTarget(target);
     }

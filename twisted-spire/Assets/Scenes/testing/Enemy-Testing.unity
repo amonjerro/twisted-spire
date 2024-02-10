@@ -5238,10 +5238,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ArmorEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 7192151272853287592, guid: 7a01055d90c68a747a2ea98928f3a403, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

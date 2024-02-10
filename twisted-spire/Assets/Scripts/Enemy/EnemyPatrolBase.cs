@@ -6,7 +6,10 @@ public class EnemyPatrolBase : Enemy
 {
     [Tooltip("The radius from the center of the level. The player moves along a horizonal circumference of this radius.")]
     public float levelRadius = 10f;
+
+    [Tooltip("The vertical offset for the sprite of this enemy")]
     public float spriteHeight;
+
     SpriteRenderer childSM;
     BoxCollider col;
     StateMachine stateMachine;
