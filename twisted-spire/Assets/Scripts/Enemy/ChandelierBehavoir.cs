@@ -59,8 +59,8 @@ public class FallingChandelier : MonoBehaviour
         {
             PlayerController pc = collision.gameObject.GetComponent<PlayerController>();
             pc.ResetToSpawner();
-            //ResetChandelier();
-            DestroyAndRespawn();
+            ResetChandelier();
+            //DestroyAndRespawn();
         }
         else if (collision.gameObject.CompareTag("Floor") && hasFallen)
         {
