@@ -36,6 +36,7 @@ public abstract class State {
 public class IdleState : State
 {
     StateMachine sm;
+    KinematicController km;
     bool isActive = true;
     public float idleTime;
     float internalTimer;
@@ -49,6 +50,7 @@ public class IdleState : State
     protected override void OnStateStart(StateMachine sm)
     {
         this.sm = sm;
+        km = sm.GetComponent<KinematicController>();
         EnemyAnimationController animationController = sm.GetAnimator();
         animationController.SetParameter(StateTypes.Idle, true);
         sm.SetupIdle(this);
@@ -73,8 +75,7 @@ public class IdleState : State
         // Creatures idle for some time, then go back to patrolling
         internalTimer += Time.deltaTime;
         if (internalTimer > idleTime)
-        {
-            
+        {   
             EndState(StateTypes.Patrolling);
         }
     }
@@ -91,6 +92,7 @@ public class PatrollingState : State
 
     protected override void OnStateEnd(StateTypes nextState)
     {
+        km.ResetCleanup();
         EnemyAnimationController animationController = sm.GetAnimator();
         animationController.SetParameter(StateTypes.Patrolling, false);
         sm.SetState(nextState);
@@ -106,6 +108,7 @@ public class PatrollingState : State
 
         // Move towards the current target
         km.MoveTowardsTarget();
+        km.ResetHeight();
         if (km.DestinationWithinTolerance(sm.gameObject.transform.position, tolerance))
         {
             
@@ -165,7 +168,6 @@ public class AttackingState : State
     {
         // Move towards recorder player position
         km.MoveTowardsTarget();
-
         // If it has reached the player position, move to a recovery time
         if (km.DestinationWithinTolerance(sm.gameObject.transform.position, tolerance))
         {
@@ -187,16 +189,21 @@ public class AttackingState : State
 public class RecoveringState : State
 {
     StateMachine sm;
+    KinematicController km;
     public float idleTime;
     float internalTimer;
     protected override void OnStateEnd(StateTypes nextState)
     {
+        km.ResetCleanup();
+        EnemyAnimationController animationController = sm.GetAnimator();
+        animationController.SetParameter(StateTypes.Recovering, false);
         sm.SetState(nextState);
     }
 
     protected override void OnStateUpdate()
     {
         internalTimer += Time.deltaTime;
+        km.ResetHeight();
         if (internalTimer >= idleTime)
         {
             EndState(StateTypes.Patrolling);
@@ -206,6 +213,9 @@ public class RecoveringState : State
     protected override void OnStateStart(StateMachine sm)
     {
         this.sm = sm;
+        km = sm.GetComponent<KinematicController>();
+        EnemyAnimationController animationController = sm.GetAnimator();
+        animationController.SetParameter(StateTypes.Recovering, true);
         sm.SetupRecovery(this);
     }
 }

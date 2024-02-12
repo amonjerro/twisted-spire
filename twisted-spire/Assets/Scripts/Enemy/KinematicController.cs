@@ -13,7 +13,9 @@ public class KinematicController : MonoBehaviour
     EnemyPatrolBase baseController;
     public Vector3 initialPosition;
     private Vector3 targetPosition;
+    private Vector3 stateChangePosition;
     public bool allowVerticalMovement;
+    private float _resetTime;
 
     private void Start()
     {
@@ -43,6 +45,16 @@ public class KinematicController : MonoBehaviour
             baseController.SetFlipSprite(false);
         }
 
+        // If I can't move vertically, I haven't got anything else to do
+        if (!allowVerticalMovement)
+        {
+            return;
+        }
+        // Otherwise
+        // Calculate height delta
+        target = targetPosition;
+        stateChangePosition = transform.position;
+
     }
 
     public void MoveTowardsTarget()
@@ -50,21 +62,17 @@ public class KinematicController : MonoBehaviour
         RotateTowardsTarget();
         if (allowVerticalMovement)
         {
-            
+            ElevateTowardsTarget();
         }
         
     }
 
     public bool DestinationWithinTolerance(Vector3 position, float tolerance)
     {
-        if (allowVerticalMovement)
-        {
-            return Vector3.Distance(position, targetPosition) <= tolerance;
-        } else
-        {
-            Vector3 heightAgnosticPosition = new Vector3(targetPosition.x, position.y, targetPosition.z);
-            return Vector3.Distance(position, heightAgnosticPosition) <= tolerance;
-        }
+
+       Vector3 heightAgnosticPosition = new Vector3(targetPosition.x, position.y, targetPosition.z);
+       return Vector3.Distance(position, heightAgnosticPosition) <= tolerance;
+
     }
 
     public void SetRushSpeed()
@@ -91,14 +99,30 @@ public class KinematicController : MonoBehaviour
     }
 
 
-    // To do
     public void ElevateTowardsTarget()
     {
-
+        if (!allowVerticalMovement)
+        {
+            return;
+        }
+        _resetTime = Mathf.Clamp01(_resetTime + Time.deltaTime);
+        float newYposition = UtilityFunctions.Lerp(stateChangePosition.y, targetPosition.y, _resetTime);
+        transform.position = new Vector3(transform.position.x, newYposition, transform.position.z);
     }
 
     public void ResetHeight()
     {
+        if (!allowVerticalMovement)
+        {
+            return;
+        }
+        _resetTime = Mathf.Clamp01(_resetTime + Time.deltaTime);
+        float newYposition = UtilityFunctions.Lerp(stateChangePosition.y, initialPosition.y, _resetTime);
+        transform.position = new Vector3(transform.position.x, newYposition, transform.position.z);
+    }
 
+    public void ResetCleanup()
+    {
+        _resetTime = 0;
     }
 }

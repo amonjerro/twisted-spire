@@ -17,4 +17,9 @@ public static class UtilityFunctions
         float newPositionZ = position.x * Mathf.Sin(rotationAngleInRadians) + position.z * Mathf.Cos(rotationAngleInRadians);
         return new Vector3(newPositionX, position.y, newPositionZ);
     }
+
+    public static float Lerp(float a, float b, float t)
+    {
+        return (1 - t) * a + t * b;
+    }
 }
