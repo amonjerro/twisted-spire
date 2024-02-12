@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingState: 0
   currentStateType: 0
-  canAttack: 1
+  canAttack: 0
   patrolTheta: 10
   distanceTolerance: 0.2
   recoveryTime: 1
@@ -121,6 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5153abe864994044818a2934f5c2b7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  alertThingy: {fileID: 3478524869387296388, guid: b46cfea79f385c7419fe0c9862774733, type: 3}
 --- !u!1 &7143238419561329496
 GameObject:
   m_ObjectHideFlags: 0

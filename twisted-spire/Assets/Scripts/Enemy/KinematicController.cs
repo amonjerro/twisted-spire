@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
+
 
 public class KinematicController : MonoBehaviour
 {
@@ -55,6 +54,11 @@ public class KinematicController : MonoBehaviour
         target = targetPosition;
         stateChangePosition = transform.position;
 
+    }
+
+    public void SetStateChangePosition()
+    {
+        stateChangePosition = transform.position;
     }
 
     public void MoveTowardsTarget()
@@ -123,6 +127,6 @@ public class KinematicController : MonoBehaviour
 
     public void ResetCleanup()
     {
-        _resetTime = 0;
+        _resetTime = 0f;
     }
 }
