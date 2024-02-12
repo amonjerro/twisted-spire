@@ -159,6 +159,7 @@ public class AttackingState : State
     protected override void OnStateEnd(StateTypes nextState)
     {
         km.ResetSpeed();
+        km.ResetCleanup();
         EnemyAnimationController animationController = sm.GetAnimator();
         animationController.SetParameter(StateTypes.Attacking, false);
         sm.SetState(nextState);
@@ -212,8 +213,10 @@ public class RecoveringState : State
 
     protected override void OnStateStart(StateMachine sm)
     {
+
         this.sm = sm;
         km = sm.GetComponent<KinematicController>();
+        km.SetStateChangePosition();
         EnemyAnimationController animationController = sm.GetAnimator();
         animationController.SetParameter(StateTypes.Recovering, true);
         sm.SetupRecovery(this);
@@ -235,6 +238,8 @@ public class AlertedState : State
         this.sm = sm;
         sm.SetupAlert(this);
         KinematicController km = sm.gameObject.GetComponent<KinematicController>();
+        EnemyAnimationController em = sm.gameObject.GetComponent<EnemyAnimationController>();
+        em.ShowAlert();
         km.SetRushSpeed();
         km.SetTarget(target);
     }
