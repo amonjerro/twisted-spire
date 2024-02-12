@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     public bool immune = false;
 
     float hp;
-    GameObject player;
+    protected GameObject player;
 
     protected virtual void Start()
     {

@@ -5,8 +5,9 @@ using UnityEngine;
 public class WizardBehaviorHandler : Enemy
 {
     public GameObject fireball;
-    public float fireballSpeed = 5f;
-    public float fireballDamage = 33f;
+    public float fireballSpeed = 10f;
+    public float fireballMinCD = 3f;
+    public float fireballMaxCD = 6f;
 
     public float laserDuration = 5f;
     public float laserCount = 4f;
@@ -16,6 +17,11 @@ public class WizardBehaviorHandler : Enemy
     public float phase3Threshold = 0.33f;
 
     bool aggro = false;
+    float fireTmr = 0f;
+
+    // player component references
+    Rigidbody rb;
+    PlayerController pc;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -25,17 +31,51 @@ public class WizardBehaviorHandler : Enemy
         {
             Debug.LogError("ERROR: Wizard does not have a Fireball prefab set!");
         }
+
+        rb = player.GetComponent<Rigidbody>();
+        pc = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        fireTmr -= Time.deltaTime;
+
+        // orient wizard to always look towards the player
+        Vector3 toPlayer = player.transform.GetChild(0).position - transform.position;
+        Quaternion orientation = Quaternion.LookRotation(toPlayer);
+        transform.rotation = orientation;
+
+        if (fireTmr <= 0f)
+        {
+            fireTmr = Random.Range(fireballMinCD, fireballMaxCD);
+
+            // Calculate the trajectory of the fireball's path based on the player's velocity
+            
+            Vector3 playerVel = Vector3.Cross(toPlayer, Vector3.up).normalized * (rb.angularVelocity.y * pc.levelRadius) + rb.velocity;
+
+            // Just cast a firefball directly at the player if they're not moving
+            if (playerVel == Vector3.zero)
+            {
+                CastFireball(orientation, fireballSpeed);
+            }
+            // Alter the fireball's trajectory based on the player's movement
+            else
+            {
+                float phi = Vector3.Angle(-toPlayer, playerVel) * Mathf.Deg2Rad;
+                
+                float theta = Mathf.Asin(playerVel.magnitude * Mathf.Sin(phi) / fireballSpeed) * Mathf.Rad2Deg;
+                orientation = Quaternion.AngleAxis(theta, Vector3.Cross(playerVel, toPlayer).normalized) * orientation;
+
+                CastFireball(orientation, fireballSpeed);
+            }
+        }
     }
 
-    public void CastFireball(Vector3 direction, float speed, float damage)
+    public void CastFireball(Quaternion orientation, float speed)
     {
-
+        GameObject newFireball = Instantiate(fireball, transform.position + (transform.forward), orientation);
+        newFireball.GetComponent<FireballHandler>().speed = speed;
     }
 
     /// <summary>

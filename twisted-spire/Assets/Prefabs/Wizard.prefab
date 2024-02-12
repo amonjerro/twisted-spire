@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 2715735023274308708}
   - component: {fileID: 5083132557161588091}
   - component: {fileID: 3577527495861296694}
+  - component: {fileID: 5439126369450629109}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -156,10 +157,38 @@ MonoBehaviour:
   maxHP: 100
   immune: 0
   fireball: {fileID: 4103972342796371309, guid: 2468630b7b0a3714e84159fd59b4d4e8, type: 3}
-  fireballSpeed: 5
-  fireballDamage: 33
+  fireballSpeed: 20
+  fireballMinCD: 0.5
+  fireballMaxCD: 1
   laserDuration: 5
   laserCount: 4
   laserRotationSpeedDeg: 10
   phase2Threshold: 0.67
   phase3Threshold: 0.33
+--- !u!54 &5439126369450629109
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2364669942318960970}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
