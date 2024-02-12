@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float moveAccel = 100f;
 
     [Tooltip("Player's movement drag.")]
-    public float moveDrag = -10f;
+    public float moveDrag = -50f;
 
     [Tooltip("Player's airborne control.")]
     public float airborneControl = 0.1f;

@@ -71,7 +71,7 @@ public class FallingChandelier : MonoBehaviour
         }
     }
 
-    void ResetChandelier()
+    public void ResetChandelier()
     {
         rb.isKinematic = true;
         hasFallen = false;
