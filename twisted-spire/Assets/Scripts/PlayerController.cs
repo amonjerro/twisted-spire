@@ -159,4 +159,14 @@ public class PlayerController : MonoBehaviour
         sp.transform.localPosition = new Vector3(0f, upsideDown ? 1f : -1f, 0f);
         sp.flipY = upsideDown;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent(out FireballHandler fb))
+        {
+            Transform wizardT = GameObject.FindWithTag("Wizard").transform;
+            fb.transform.rotation = Quaternion.LookRotation(wizardT.position - modelPivot.transform.position);
+            other.attachedRigidbody.isKinematic = false;
+        }
+    }
 }
