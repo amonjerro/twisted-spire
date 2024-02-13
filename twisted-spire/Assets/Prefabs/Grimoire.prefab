@@ -106,7 +106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f33a1712daeaeea4998c1463265c57c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 10
+  rotateSpeed: 15
   initialPosition: {x: 0, y: 0, z: 0}
   allowVerticalMovement: 1
 --- !u!114 &699740967294394127
