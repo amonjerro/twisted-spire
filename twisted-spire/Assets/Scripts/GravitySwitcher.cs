@@ -21,6 +21,9 @@ public class GravitySwitcher : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         Physics.gravity *= -1f;
-        other.GetComponent<PlayerController>().FlipSprite(Physics.gravity.y >= 0f);
+        if (other.TryGetComponent<PlayerController>(out PlayerController pc))
+        {
+            pc.FlipSprite(Physics.gravity.y >= 0f);
+        }
     }
 }
