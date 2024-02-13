@@ -8,11 +8,12 @@ public class PauseScreenBehavior : MonoBehaviour
     bool isPaused = false;
     public GameObject pauseScreen;
     public GameObject gameUI;
+    public GameObject dialogWindow;
 
     private void Update()
     {
         //Pause when Escape key is pressed
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !dialogWindow.activeInHierarchy)
         {
             PauseGame();
         }
