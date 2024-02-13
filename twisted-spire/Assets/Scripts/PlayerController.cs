@@ -133,8 +133,16 @@ public class PlayerController : MonoBehaviour
 
     public void ResetToSpawner()
     {
+        FallingChandelier[] chandeliers = FindObjectsOfType<FallingChandelier>();
+        Debug.Log(chandeliers.Length);
+        foreach (var chandelier in chandeliers)
+        {
+            Debug.Log("reset");
+            chandelier.ResetChandelier(); // Call the reset method on all chandeliers
+        }
         transform.position = Spawner.transform.position;
         isDead = true;
+   
     }
     
     // When the player passes a checkpoint, call this function. Sets the spawner

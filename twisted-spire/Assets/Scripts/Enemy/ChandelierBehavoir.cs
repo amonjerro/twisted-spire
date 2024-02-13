@@ -13,11 +13,14 @@ public class FallingChandelier : MonoBehaviour
 
     private Vector3 initialPosition;
     private Quaternion initialRotation;
-
+    private Renderer rend;
+    private Collider coll;
     private Rigidbody rb; // Reference to the Rigidbody component
     private CapsuleCollider detectionCollider; // Reference to the already attached detection collider
     void Awake()
     {
+        coll = GetComponent<Collider>();
+        rend = GetComponent<Renderer>();
         // Get the Rigidbody component
         rb = GetComponent<Rigidbody>();
         // Get the reference to the already attached CapsuleCollider
@@ -78,11 +81,16 @@ public class FallingChandelier : MonoBehaviour
         hitGround = false;
         transform.position = initialPosition;
         transform.rotation = initialRotation;
+        //gameObject.SetActive(true);
+        rend.enabled = true;
+        coll.enabled = true;
     }
 
     async void DestroyAndRespawn()
     {
-        gameObject.SetActive(false); // Hide the chandelier;
+        rend.enabled = false;
+        coll.enabled = false;
+        //gameObject.SetActive(false); // Hide the chandelier;
         //Invoke("ResetChandelier", 1.5f);
         //gameObject.SetActive(true); // Show the chandelier again
     }
