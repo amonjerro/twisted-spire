@@ -162,6 +162,8 @@ public class AttackingState : State
         km.ResetCleanup();
         EnemyAnimationController animationController = sm.GetAnimator();
         animationController.SetParameter(StateTypes.Attacking, false);
+        EnemyPatrolBase eb = sm.gameObject.GetComponent<EnemyPatrolBase>();
+        eb.AdjustHitBox(1f);
         sm.SetState(nextState);
     }
 
@@ -182,6 +184,8 @@ public class AttackingState : State
         km = sm.gameObject.GetComponent<KinematicController>();
         EnemyAnimationController animationController = sm.GetAnimator();
         animationController.SetParameter(StateTypes.Attacking, true);
+        EnemyPatrolBase eb = sm.gameObject.GetComponent<EnemyPatrolBase>();
+        eb.AdjustHitBox(-1f);
         sm.SetupAttack(this);
         km.SetTarget(target);
     }
@@ -230,6 +234,8 @@ public class AlertedState : State
     float idleTimer = 0.0f;
     protected override void OnStateEnd(StateTypes nextState)
     {
+        EnemyAnimationController em = sm.gameObject.GetComponent<EnemyAnimationController>();
+        em.SetParameter(StateTypes.Alerted, false);
         sm.SetState(nextState);
     }
 
@@ -239,6 +245,7 @@ public class AlertedState : State
         sm.SetupAlert(this);
         KinematicController km = sm.gameObject.GetComponent<KinematicController>();
         EnemyAnimationController em = sm.gameObject.GetComponent<EnemyAnimationController>();
+        em.SetParameter(StateTypes.Alerted, true);
         em.ShowAlert();
         km.SetRushSpeed();
         km.SetTarget(target);
