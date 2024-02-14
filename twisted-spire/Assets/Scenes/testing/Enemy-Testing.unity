@@ -3331,6 +3331,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseScreen: {fileID: 1098063381}
   gameUI: {fileID: 1890110062}
+  dialogWindow: {fileID: 0}
 --- !u!114 &1207611198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4719,6 +4720,10 @@ PrefabInstance:
     - target: {fileID: 1489106692198185230, guid: 0be61c7800682e04ea2725ecead5c7ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2782743656215015964, guid: 0be61c7800682e04ea2725ecead5c7ac, type: 3}
+      propertyPath: attackHitBoxAdjust
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
