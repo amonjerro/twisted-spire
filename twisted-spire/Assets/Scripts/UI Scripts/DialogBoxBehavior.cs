@@ -17,6 +17,15 @@ public class DialogBoxBehavior : MonoBehaviour
         Time.timeScale = 0.0f;
     }
 
+    private void Update()
+    {
+        //Pause when Escape key is pressed
+        if (Input.GetKeyDown(KeyCode.Space) && dialogBox.activeInHierarchy)
+        {
+            NextSection();
+        }
+    }
+
     public void NextSection() {
         //Start the game when the button is pressed on the last dialog section
 
