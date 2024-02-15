@@ -7,6 +7,8 @@ TagManager:
   - Enemy
   - Floor
   - Wizard
+  - KickyBoi
+  - KickTarget
   layers:
   - Default
   - TransparentFX
