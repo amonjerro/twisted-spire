@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WizardBehaviorHandler : Enemy
+public class WizardBehaviorHandler : Enemy, IKickableTarget
 {
     public GameObject fireball;
     public float fireballSpeed = 10f;
@@ -85,6 +85,11 @@ public class WizardBehaviorHandler : Enemy
     public void SetAggro(bool aggro)
     {
         this.aggro = aggro;
+    }
+
+    public void OnKicked()
+    {
+
     }
 
     public override bool Immune { get => base.Immune; set => base.Immune = value; }

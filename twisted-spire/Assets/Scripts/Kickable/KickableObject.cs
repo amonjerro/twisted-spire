@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class KickableObject : MonoBehaviour
 {
-    public KickableTarget target;
+    public GameObject target;
     private float _distance;
     private Vector3 _direction;
     Rigidbody rb;
@@ -44,15 +44,12 @@ public class KickableObject : MonoBehaviour
                 // Kick this thing
                 Kick();
                 break;
-            case "KickTarget":
-                target.ActivateDependent();
-                Destroy(gameObject);
-                break;
-            case "Wizard":
-                // Deal damage to the wizard?
-                Destroy(gameObject);
-                break;
         }
 
+        // This should be handled uniquely by any class that overrides the KickableTarget abstract class
+        if (collision.gameObject.TryGetComponent(out IKickableTarget kick))
+        {
+            kick.OnKicked();
+        }
     }
 }
