@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WizardBehaviorHandler : Enemy
+public class WizardBehaviorHandler : Enemy, IKickableTarget
 {
     public GameObject fireball;
     public float fireballSpeed = 10f;
@@ -16,7 +16,7 @@ public class WizardBehaviorHandler : Enemy
     public float phase2Threshold = 0.67f;
     public float phase3Threshold = 0.33f;
 
-    bool aggro = false;
+    public bool aggro = false;
     float fireTmr = 0f;
 
     // player component references
@@ -46,13 +46,13 @@ public class WizardBehaviorHandler : Enemy
         Quaternion orientation = Quaternion.LookRotation(toPlayer);
         transform.rotation = orientation;
 
-        if (fireTmr <= 0f)
+        if (aggro && fireTmr <= 0f)
         {
             fireTmr = Random.Range(fireballMinCD, fireballMaxCD);
 
             // Calculate the trajectory of the fireball's path based on the player's velocity
             
-            Vector3 playerVel = Vector3.Cross(toPlayer, Vector3.up).normalized * (rb.angularVelocity.y * pc.levelRadius) + rb.velocity;
+            Vector3 playerVel = Vector3.Cross(toPlayer, Vector3.up).normalized * (rb.angularVelocity.y * pc.levelRadius) - rb.velocity;
 
             // Just cast a firefball directly at the player if they're not moving
             if (playerVel == Vector3.zero)
@@ -74,8 +74,9 @@ public class WizardBehaviorHandler : Enemy
 
     public void CastFireball(Quaternion orientation, float speed)
     {
-        GameObject newFireball = Instantiate(fireball, transform.position + (transform.forward), orientation);
+        GameObject newFireball = Instantiate(fireball, transform.position + transform.forward, orientation);
         newFireball.GetComponent<FireballHandler>().speed = speed;
+        newFireball.GetComponent<FireballHandler>().target = gameObject;
     }
 
     /// <summary>
@@ -87,5 +88,8 @@ public class WizardBehaviorHandler : Enemy
         this.aggro = aggro;
     }
 
-    public override bool Immune { get => base.Immune; set => base.Immune = value; }
+    public void OnKicked()
+    {
+        TakeDamage(20f);
+    }
 }

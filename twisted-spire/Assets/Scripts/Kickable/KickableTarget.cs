@@ -2,14 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KickableTarget : MonoBehaviour
+public interface IKickableTarget
 {
-    public KickableActivated dependent;
-    public void ActivateDependent()
-    {
-        if (dependent != null)
-        {
-            dependent.Open();
-        }   
-    }
+    // Overridden by child class to run specific logic when activated
+    public abstract void OnKicked();
 }
