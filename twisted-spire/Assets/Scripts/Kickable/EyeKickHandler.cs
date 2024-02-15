@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EyeKickHandler : MonoBehaviour, IKickableTarget
 {
-    public Activatable objectToActivate;
+    public IActivatable objectToActivate;
 
     // Start is called before the first frame update
     void Start()

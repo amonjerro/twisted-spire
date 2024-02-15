@@ -8,13 +8,12 @@ public class KickableObject : MonoBehaviour
     public GameObject target;
     private float _distance;
     private Vector3 _direction;
-    Rigidbody rb;
+    protected Rigidbody rb;
 
     // Start is called before the first frame update
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        CalculateKick();
     }
 
     // Update is called once per frame
@@ -23,33 +22,36 @@ public class KickableObject : MonoBehaviour
         
     }
 
-    private void Kick()
+    public virtual void Kick()
     {
-        rb.AddForce(_direction * _distance * 0.5f, ForceMode.Impulse);
+        // exclude player layer from all colliders n this object
+        // so it can't be kicked multiple times
+        foreach (Collider c in GetComponents<Collider>())
+        {
+            c.excludeLayers |= (1 << 3);
+        }
+        
+        rb.isKinematic = false;
+        if (target)
+        {
+            CalculateKick();
+            rb.AddForce(_direction * _distance, ForceMode.VelocityChange);
+        }
     }
 
     private void CalculateKick()
     {
-        _distance = Vector3.Distance(transform.position, target.gameObject.transform.position);
-        _direction = target.gameObject.transform.position - transform.position;
+        _distance = Vector3.Distance(transform.position, target.transform.position);
+        _direction = (target.transform.position - transform.position).normalized;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    protected virtual void OnCollisionEnter(Collision collision)
     {
-        switch (collision.gameObject.tag)
-        {
-            case "Player":
-                // Make sure the player goes into Kick animation
-
-                // Kick this thing
-                Kick();
-                break;
-        }
-
         // This should be handled uniquely by any class that overrides the KickableTarget abstract class
         if (collision.gameObject.TryGetComponent(out IKickableTarget kick))
         {
             kick.OnKicked();
+            Destroy(gameObject);
         }
     }
 }
