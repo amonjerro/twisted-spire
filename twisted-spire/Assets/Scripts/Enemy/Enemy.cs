@@ -23,10 +23,12 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        
         float newHP = Mathf.Clamp(hp - damage, 0f, maxHP);
-        if (newHP == 0f)
+        hp = newHP;
+        if (hp == 0f)
         {
-
+            Destroy(gameObject);
         }
     }
 

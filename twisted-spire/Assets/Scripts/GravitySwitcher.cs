@@ -20,9 +20,9 @@ public class GravitySwitcher : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Physics.gravity *= -1f;
         if (other.TryGetComponent<PlayerController>(out PlayerController pc))
         {
+            Physics.gravity *= -1f;
             pc.FlipSprite(Physics.gravity.y >= 0f);
         }
     }

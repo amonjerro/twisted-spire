@@ -10,6 +10,9 @@ public class EnemyPatrolBase : Enemy
     [Tooltip("The vertical offset for the sprite of this enemy")]
     public float spriteHeight;
 
+    [Tooltip("Value to adjust the hitbox by when attacking")]
+    public float attackHitBoxAdjust;
+
     SpriteRenderer childSM;
     BoxCollider col;
     StateMachine stateMachine;
@@ -61,5 +64,10 @@ public class EnemyPatrolBase : Enemy
             pc.ResetToSpawner();
         }
         
+    }
+
+    public void AdjustHitBox(float direction)
+    {
+        col.center += new Vector3(0, direction * attackHitBoxAdjust, 0);
     }
 }
