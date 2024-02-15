@@ -36,7 +36,7 @@ Transform:
   - {fileID: 7164796311439525309}
   - {fileID: 7055001922352811492}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6308009671960694202
 MonoBehaviour:
@@ -54,6 +54,7 @@ MonoBehaviour:
   immune: 0
   levelRadius: 10
   spriteHeight: 1
+  attackHitBoxAdjust: 0
 --- !u!65 &5333701196375528456
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -200,6 +201,7 @@ GameObject:
   - component: {fileID: 7164796311439525309}
   - component: {fileID: 4698504969903986640}
   - component: {fileID: 7132424199652062574}
+  - component: {fileID: 6142114346987059149}
   m_Layer: 6
   m_Name: GameObject
   m_TagString: Enemy
@@ -295,3 +297,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6142114346987059149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9091938465103208719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3688cf7bc13c44289b42a62cae1cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
