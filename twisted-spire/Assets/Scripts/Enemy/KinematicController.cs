@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UIElements;
 using UnityEngine;
 
 
@@ -15,11 +16,13 @@ public class KinematicController : MonoBehaviour
     private Vector3 stateChangePosition;
     public bool allowVerticalMovement;
     private float _resetTime;
+    private GameObject player;
 
     private void Start()
     {
         baseController = GetComponent<EnemyPatrolBase>();
         _initialRotateSpeed = rotateSpeed;
+        player = GameObject.Find("ModelPivot");
     }
 
     public void SetTarget(Vector3 target)
@@ -36,12 +39,17 @@ public class KinematicController : MonoBehaviour
         float cwDistance = Vector3.Distance(cwPosition, target);
         rotateCounterClockWise = ccwDistance < cwDistance;
 
+
+        Vector3 position = transform.position;
+        Vector3 playerPosition = player.transform.position;
         if (rotateCounterClockWise)
         {
             baseController.SetFlipSprite(true);
+            if(Vector3.Dot(position, playerPosition) < 0) baseController.SetFlipSprite(false);
         } else
         {
             baseController.SetFlipSprite(false);
+            if (Vector3.Dot(position, playerPosition) < 0) baseController.SetFlipSprite(true);
         }
 
         // If I can't move vertically, I haven't got anything else to do
