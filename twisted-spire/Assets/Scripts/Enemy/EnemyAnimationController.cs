@@ -45,6 +45,11 @@ public class EnemyAnimationController : MonoBehaviour
         }
     }
 
+    public void WizardTrigger(string trigger_name)
+    {
+        Debug.Log(trigger_name);
+        spriteAnimator.SetTrigger(trigger_name);
+    }
 
     public void SetParameter(State.StateTypes animationState, bool isActive)
     {

@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 929448147072837250}
   - component: {fileID: 5254656557747485969}
+  - component: {fileID: 1341170239949431572}
+  - component: {fileID: 2325029927878347167}
   m_Layer: 0
   m_Name: Sprite
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1009120921587668097}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.5, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2715735023274308708}
@@ -73,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4426077569480048350, guid: 345fb782bb0ae56488f0a9f63e0ad2c3, type: 3}
+  m_Sprite: {fileID: 1800793314191511305, guid: 3e935686814a5504982afcf259f2ceae, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -84,6 +86,39 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1341170239949431572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009120921587668097}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3688cf7bc13c44289b42a62cae1cdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &2325029927878347167
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1009120921587668097}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2364669942318960970
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,6 +131,7 @@ GameObject:
   - component: {fileID: 5083132557161588091}
   - component: {fileID: 3577527495861296694}
   - component: {fileID: 5439126369450629109}
+  - component: {fileID: 695474103911770091}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Wizard
@@ -158,6 +194,7 @@ MonoBehaviour:
   immune: 0
   fireball: {fileID: 4103972342796371309, guid: 2468630b7b0a3714e84159fd59b4d4e8, type: 3}
   fireballSpeed: 20
+  fireballStartCastAnim: 0.5
   fireballMinCD: 0.5
   fireballMaxCD: 1
   laserDuration: 5
@@ -165,6 +202,8 @@ MonoBehaviour:
   laserRotationSpeedDeg: 10
   phase2Threshold: 0.67
   phase3Threshold: 0.33
+  aggro: 0
+  aimNoise: 0.29
 --- !u!54 &5439126369450629109
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -192,3 +231,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &695474103911770091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2364669942318960970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5153abe864994044818a2934f5c2b7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alertThingy: {fileID: 0}
