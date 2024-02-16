@@ -162,11 +162,11 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent(out FireballHandler fb))
+        if (other.gameObject.TryGetComponent(out KickableObject kick))
         {
-            Transform wizardT = GameObject.FindWithTag("Wizard").transform;
-            fb.transform.rotation = Quaternion.LookRotation(wizardT.position - modelPivot.transform.position);
-            other.attachedRigidbody.isKinematic = false;
+            Debug.Log(other.gameObject.name);
+            // Player kick animation here
+            kick.Kick();
         }
     }
 }
