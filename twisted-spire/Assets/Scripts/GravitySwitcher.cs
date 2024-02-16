@@ -4,18 +4,22 @@ using UnityEngine;
 
 public class GravitySwitcher : MonoBehaviour
 {
+    public bool flipParticles = false;
     BoxCollider col;
 
     // Start is called before the first frame update
     void Start()
     {
         col = GetComponent<BoxCollider>();
+        if (flipParticles)
+        {
+            GetComponentInChildren<ParticleSystem>().transform.rotation = Quaternion.Euler(90, 0, 0);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     private void OnTriggerEnter(Collider other)
