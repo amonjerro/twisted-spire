@@ -47,6 +47,7 @@ public class KickableObject : MonoBehaviour
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("ayo");
         // This should be handled uniquely by any class that overrides the KickableTarget abstract class
         if (collision.gameObject.TryGetComponent(out IKickableTarget kick))
         {
