@@ -105,4 +105,9 @@ public class StateMachine : MonoBehaviour
     {
         return animationController;
     }
+
+    public void MoveToState(State.StateTypes state)
+    {
+        currentState.EndState(state);
+    }
 }

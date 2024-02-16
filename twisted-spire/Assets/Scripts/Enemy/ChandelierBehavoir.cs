@@ -71,6 +71,10 @@ public class FallingChandelier : MonoBehaviour
             hitGround = true;
             await Task.Delay(500);
             DestroyAndRespawn();
+        } else if (collision.gameObject.CompareTag("Enemy") && hasFallen)
+        {
+            StateMachine stateMachine = collision.gameObject.GetComponent<StateMachine>();
+            stateMachine.MoveToState(State.StateTypes.Dead);
         }
     }
 

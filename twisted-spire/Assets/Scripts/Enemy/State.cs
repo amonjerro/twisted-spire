@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -11,6 +12,7 @@ public abstract class State {
         Alerted,
         Attacking,
         Recovering,
+        Dead
     }
 
     protected abstract void OnStateEnd(StateTypes nextState);
@@ -263,6 +265,31 @@ public class AlertedState : State
 
 }
 
+public class DeadState : State
+{
+    protected override void OnStateEnd(StateTypes nextState)
+    {
+        return;
+    }
+
+    protected override void OnStateStart(StateMachine sm)
+    {
+        KinematicController km = sm.gameObject.GetComponent<KinematicController>();
+        km.Stop();
+
+        EnemyPatrolBase epb = sm.gameObject.GetComponent<EnemyPatrolBase>();
+        epb.DisableHitBox();
+        EnemyAnimationController em = sm.gameObject.GetComponent<EnemyAnimationController>();
+        em.SetParameter(StateTypes.Dead, true);
+        return;
+    }
+
+    protected override void OnStateUpdate()
+    {
+        return;
+    }
+}
+
 public static class StateFactory
 {
     public static State MakeState(State.StateTypes type)
@@ -277,6 +304,8 @@ public static class StateFactory
                 return new AlertedState();
             case State.StateTypes.Recovering:
                 return new RecoveringState();
+            case State.StateTypes.Dead:
+                return new DeadState();
             default:
                 return new IdleState();
         }

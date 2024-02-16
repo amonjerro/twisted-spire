@@ -62,6 +62,9 @@ public class EnemyAnimationController : MonoBehaviour
             case State.StateTypes.Alerted:
                 spriteAnimator.SetBool("isAlerted", isActive);
                 break;
+            case State.StateTypes.Dead:
+                spriteAnimator.SetBool("isDead", isActive);
+                break;
             default:
                 spriteAnimator.SetBool("isIdle", isActive);
                 break;
