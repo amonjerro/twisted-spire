@@ -137,4 +137,9 @@ public class KinematicController : MonoBehaviour
     {
         _resetTime = 0f;
     }
+
+    public void Stop()
+    {
+        rotateSpeed = 0.0f;
+    }
 }

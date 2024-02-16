@@ -70,4 +70,9 @@ public class EnemyPatrolBase : Enemy
     {
         col.center += new Vector3(0, direction * attackHitBoxAdjust, 0);
     }
+
+    public void DisableHitBox()
+    {
+        col.enabled = false;
+    }
 }
