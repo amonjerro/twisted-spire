@@ -186,8 +186,8 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out KickableObject kick))
         {
-            Debug.Log(other.gameObject.name);
             // Player kick animation here
+            pc_animator.SetTrigger("t_kick");
             kick.Kick();
         }
     }

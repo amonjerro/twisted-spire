@@ -153,7 +153,7 @@ Transform:
   m_Children:
   - {fileID: 929448147072837250}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &5083132557161588091
 CapsuleCollider:
@@ -195,8 +195,8 @@ MonoBehaviour:
   fireball: {fileID: 4103972342796371309, guid: 2468630b7b0a3714e84159fd59b4d4e8, type: 3}
   fireballSpeed: 20
   fireballStartCastAnim: 0.5
-  fireballMinCD: 0.5
-  fireballMaxCD: 1
+  fireballMinCD: 2
+  fireballMaxCD: 3.5
   laserDuration: 5
   laserCount: 4
   laserRotationSpeedDeg: 10
