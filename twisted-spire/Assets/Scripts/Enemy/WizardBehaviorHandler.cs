@@ -109,6 +109,7 @@ public class WizardBehaviorHandler : Enemy, IKickableTarget
     public void SetAggro(bool aggro)
     {
         this.aggro = aggro;
+        fireTmr = Random.Range(fireballMinCD, fireballMaxCD);
     }
 
     public void OnKicked()

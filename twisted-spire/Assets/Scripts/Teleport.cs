@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Teleporter : MonoBehaviour
 {
+    public WizardBehaviorHandler wizard;
     public float teleportDistance = 10f; // Distance to teleport the player upwards
 
     private void OnTriggerEnter(Collider other)
@@ -12,6 +13,7 @@ public class Teleporter : MonoBehaviour
         {
             Vector3 newPosition = other.transform.position + Vector3.up * teleportDistance; // Calculate the new position
             other.transform.position = newPosition; // Teleport the player to the new position
+            wizard.SetAggro(true);
         }
     }
 }
