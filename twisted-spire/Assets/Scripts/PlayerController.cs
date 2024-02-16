@@ -81,6 +81,8 @@ public class PlayerController : MonoBehaviour
             vel.x = -1f;
         }
 
+        CheckOnRamp(vel);
+
         float airCtrl = airborne ? airborneControl : 1f;
         pc_animator.SetFloat("f_movespeed", Mathf.Abs(vel.x));
         Vector3 newDir = transform.forward * vel.x;
@@ -104,6 +106,26 @@ public class PlayerController : MonoBehaviour
         }
         rb.AddForce(new Vector3(0f, vel.y, 0f));
         rb.AddTorque(0f, vel.x * moveAccel * Time.deltaTime, 0f, ForceMode.Acceleration);
+    }
+
+    void CheckOnRamp(Vector2 vel)
+    {
+        groundNormal = Vector3.zero;
+        Vector3 grav = Physics.gravity.normalized;
+        if (Physics.SphereCast(transform.position + (transform.right * levelRadius), col.radius * 0.95f, grav, out RaycastHit hit, (col.height / 2f) - col.radius + 0.1f, 1))
+        {
+            // if angle between ground normal and player's up axis
+            // is >= 15, add ramp assist
+            if (Math.Acos(Vector3.Dot(hit.normal, -grav)) / Mathf.Deg2Rad > 15)
+            {
+                groundNormal = hit.normal;
+                // No need to go faster down a ramp
+                if(vel.x < 0)
+                {
+                    rb.AddTorque(0f, vel.x * moveAccel * Time.deltaTime / 2, 0f, ForceMode.Acceleration);
+                }
+            }
+        }
     }
 
     public Vector3 GetColliderPosition()

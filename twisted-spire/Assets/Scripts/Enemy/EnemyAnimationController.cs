@@ -45,6 +45,11 @@ public class EnemyAnimationController : MonoBehaviour
         }
     }
 
+    public void WizardTrigger(string trigger_name)
+    {
+        Debug.Log(trigger_name);
+        spriteAnimator.SetTrigger(trigger_name);
+    }
 
     public void SetParameter(State.StateTypes animationState, bool isActive)
     {
@@ -61,6 +66,9 @@ public class EnemyAnimationController : MonoBehaviour
                 break;
             case State.StateTypes.Alerted:
                 spriteAnimator.SetBool("isAlerted", isActive);
+                break;
+            case State.StateTypes.Dead:
+                spriteAnimator.SetBool("isDead", isActive);
                 break;
             default:
                 spriteAnimator.SetBool("isIdle", isActive);
