@@ -119,7 +119,11 @@ public class PlayerController : MonoBehaviour
             if (Math.Acos(Vector3.Dot(hit.normal, -grav)) / Mathf.Deg2Rad > 15)
             {
                 groundNormal = hit.normal;
-                rb.AddTorque(0f, vel.x * moveAccel * Time.deltaTime / 2, 0f, ForceMode.Acceleration);
+                // No need to go faster down a ramp
+                if(vel.x < 0)
+                {
+                    rb.AddTorque(0f, vel.x * moveAccel * Time.deltaTime / 2, 0f, ForceMode.Acceleration);
+                }
             }
         }
     }
