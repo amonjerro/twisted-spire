@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WizardBehaviorHandler : Enemy, IKickableTarget
 {
     EnemyAnimationController eac;
     public GameObject fireball;
+    public GameObject healthBar;
     
     [Tooltip("Speed fireballs will be travelling at")]
     public float fireballSpeed = 10f;
@@ -44,6 +46,7 @@ public class WizardBehaviorHandler : Enemy, IKickableTarget
     {
         eac = GetComponent<EnemyAnimationController>();
         base.Start();
+
         if (!fireball)
         {
             Debug.LogError("ERROR: Wizard does not have a Fireball prefab set!");
@@ -109,11 +112,15 @@ public class WizardBehaviorHandler : Enemy, IKickableTarget
     public void SetAggro(bool aggro)
     {
         this.aggro = aggro;
+        healthBar.SetActive(true);
         fireTmr = Random.Range(fireballMinCD, fireballMaxCD);
     }
 
     public void OnKicked()
     {
         TakeDamage(20f);
+        healthBar.GetComponent<Slider>().value -= 20;
+
+        
     }
 }

@@ -163,8 +163,7 @@ public class PlayerController : MonoBehaviour
             chandelier.ResetChandelier(); // Call the reset method on all chandeliers
         }
         transform.position = Spawner.transform.position;
-        isDead = true;
-   
+        isDead = !isDead;
     }
     
     // When the player passes a checkpoint, call this function. Sets the spawner

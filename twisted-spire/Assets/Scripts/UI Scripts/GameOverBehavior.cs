@@ -24,7 +24,13 @@ public class GameOverBehavior : MonoBehaviour
     public void Restart()
     {
         Time.timeScale = 1.0f;
-        player.isDead = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameOverScreen.SetActive(false);
+        gameUI.SetActive(true);
+        player.ResetToSpawner();
+    }
+
+    public void RestartOnWin()
+    {
+        SceneManager.LoadScene(1);
     }
 }

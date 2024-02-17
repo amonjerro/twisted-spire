@@ -6,6 +6,8 @@ public class Enemy : MonoBehaviour
 {
     public float maxHP = 100f;
     public bool immune = false;
+    public GameObject winScreen;
+    public GameObject gameUI;
 
     float hp;
     protected GameObject player;
@@ -29,6 +31,9 @@ public class Enemy : MonoBehaviour
             hp = newHP;
             if (hp == 0f)
             {
+                winScreen.SetActive(true);
+                gameUI.SetActive(false);
+                Time.timeScale = 0.0f;
                 Destroy(gameObject);
             }
         }
